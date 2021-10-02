@@ -8,11 +8,11 @@
 		<version>2.5.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.gamerstore</groupId>
+	<groupId>org.gen</groupId>
 	<artifactId>minhaLojaDeGames</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>minhaLojaDeGames</name>
-	<description>atividade CRUD minhaLojaDeGames</description>
+	<description>Atividade CRUD back end MinhaLojaDeGames</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

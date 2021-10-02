@@ -1,7 +1,9 @@
-package br.com.gamerstore.minhaLojaDeGames.controller;
+package org.gen.minhaLojaDeGames.controller;
 
 import java.util.List;
 
+import org.gen.minhaLojaDeGames.model.Categoria;
+import org.gen.minhaLojaDeGames.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,50 +17,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gamerstore.minhaLojaDeGames.repository.CategoriaRepository;
-import br.com.gamerstore.minhaLojaDeGames.model.Categoria;
-import br.com.gamerstore.minhaLojaDeGames.model.Produto;
-import br.com.gamerstore.minhaLojaDeGames.repository.ProdutoRepository;
 
+//anotacoes
 @RestController
-@CrossOrigin (origins = "*", allowedHeaders = "*")
-@RequestMapping("/produto")
-public class ProdutoController {
+@RequestMapping("/categorias")
+@CrossOrigin("*")
+public class CategoriaController {
 	
-	@Autowired 
-	private ProdutoRepository repository;
+	@Autowired
+	private CategoriaRepository repository;
 	
-	//findAllProduto
 	@GetMapping
-	public ResponseEntity<List<Produto>>getall(){
+	public ResponseEntity<List<Categoria>>GetAll(){
 		return ResponseEntity.ok(repository.findAll());
 	}
-	//findByIDProduto
+	//findByIDCategoria
 	@GetMapping("/{id}")
-	public ResponseEntity<Produto>getById(@PathVariable long id){
+	public ResponseEntity<Categoria>getById(@PathVariable long id){
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
-	//findByDescricaoTitulo
-	@GetMapping("/titulo/{titulo}")
-	public ResponseEntity<List<Produto>> getByName(@PathVariable String titulo){
-		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(titulo));
+	//findByIDescricao
+	@GetMapping ("/descricao/{descricao}")//repete 2x para nao confundir a rota 
+	public ResponseEntity<List<Categoria>>getByDescricao(@PathVariable String descricao){
+		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(descricao));//verificar se esta certo
 	}
-	//postProduto
-	@PostMapping
-	public ResponseEntity<Produto> post(@RequestBody Produto produto){
+	//postCategoria
+	@PostMapping 
+	public ResponseEntity<Categoria> post(@RequestBody Categoria categoria){
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(repository.save(produto));
+				.body(repository.save(categoria));
 	}
 	//putCategoria
-	@PutMapping
-	public ResponseEntity<Produto> put(@RequestBody Produto produto){
-		return ResponseEntity.ok(repository.save(produto));
+	@PutMapping 
+	public ResponseEntity<Categoria> put(@RequestBody Categoria categoria){
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(repository.save(categoria));
 	}
 	//deleteCategoria
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
 	}
-	
 }

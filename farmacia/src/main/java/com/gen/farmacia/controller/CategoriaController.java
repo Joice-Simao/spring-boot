@@ -31,23 +31,30 @@ public class CategoriaController {
 	public ResponseEntity<List<Categoria>>GetAll(){
 		return ResponseEntity.ok(repository.findAll());
 	}
+	//findByIDCategoria
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria>GetById(@PathVariable long id){
+	public ResponseEntity<Categoria>getById(@PathVariable long id){
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
+	//findByIDescricao
 	@GetMapping ("/descricao/{descricao}")//repete 2x para nao confundir a rota 
-	public ResponseEntity<List<Categoria>>GetByDescricao(@PathVariable String descricao){
+	public ResponseEntity<List<Categoria>>getByDescricao(@PathVariable String descricao){
 		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(descricao));//verificar se esta certo
 	}
+	//postCategoria
 	@PostMapping 
 	public ResponseEntity<Categoria> post(@RequestBody Categoria categoria){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(categoria));
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(repository.save(categoria));
 	}
+	//putCategoria
 	@PutMapping 
 	public ResponseEntity<Categoria> put(@RequestBody Categoria categoria){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(categoria));
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(repository.save(categoria));
 	}
+	//deleteCategoria
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
