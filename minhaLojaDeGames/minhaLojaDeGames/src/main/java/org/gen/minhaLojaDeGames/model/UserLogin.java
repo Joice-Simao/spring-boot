@@ -10,6 +10,8 @@ public class UserLogin {
 	private String usuario;
 	
 	private String senha;
+	
+	private String token;
 
 	//getters setters 
 	public long getId() {
@@ -43,5 +45,13 @@ public class UserLogin {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 }
